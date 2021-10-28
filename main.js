@@ -7,22 +7,22 @@ const menuPrices = [1, 2, 4];
 const pools = [
   {
     name: "Pool 1",
-    url: "https://namanahuja15.github.io/cpu-stake/",
+    url: "https://cpuloanpools.github.io/cpuloanpools/",
     contract: "cpuloanpools",
   },
   {
     name: "Pool 2",
-    url: "https://namanahuja15.github.io/cpu-stake/SecondPool/",
+    url: "https://cpuloanpools.github.io/cpuloanpools/SecondPool/",
     contract: "cpuloanpool2",
   },
   {
     name: "Pool 3",
-    url: "https://namanahuja15.github.io/cpu-stake/ThirdPool/",
+    url: "https://cpuloanpools.github.io/cpuloanpools/ThirdPool/",
     contract: "cpuloanpool3",
   },
   {
     name: "Pool 4",
-    url: "https://namanahuja15.github.io/cpu-stake/FourthPool/",
+    url: "https://cpuloanpools.github.io/cpuloanpools/FourthPool/",
     contract: "cpuloanpool4",
   },
 
