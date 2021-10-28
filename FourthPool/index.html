@@ -1,0 +1,84 @@
+<!DOCTYPE>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=INnapf5g7QTBJFTmLHeC-x-w90H9-BgKpDeErRLtneCw9HFVL4AAGqa5p4JJ1MUT" charset="UTF-8"></script>
+
+<script type="text/javascript" charset="UTF-8"></script>
+<html lang="en">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<title>CPU LOAN POOLS</title>
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<script src="../waxjs.js"></script>
+<script src="https://unpkg.com/anchor-link@3"></script>
+<script src="https://unpkg.com/anchor-link-browser-transport@3"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<body style="background-color: #36a1d5">
+    <div id="toast" style="visibility: hidden"></div>
+    <div id="walletlist" style="visibility: hidden">
+        <div>
+            <button class="close" onclick="WalletListVisible(!1)">x</button>
+        </div>
+        <div id="choose">Choose Wallet</div>
+        <div>
+            <button id="wcw" onclick='selectWallet("cloud")'>
+                WAX Cloud Wallet
+            </button>
+        </div>
+        <div>
+            <button id="anchor" onclick='selectWallet("anchor")'>Anchor</button>
+        </div>
+    </div>
+    <div id="message" style="visibility: hidden">
+        <div><button class="close" onclick="HideMessage()">x</button></div>
+        <div id="messagecontent"></div>
+    </div>
+
+    <!-- <div id="heading">CPU Loan Pools</div>
+        <div id="loggedout"><button class="login" onclick="WalletListVisible(!0)">Login</button></div>
+        <div id="loggedin" style="display:none"><span id="accountname"></span> <button class="logout"
+                onclick="logout()">Logout</button></div>
+        <div id="timeselect">Loan&nbsp;length: <input type="number" id="timeinput" name="timeinput" pattern="\d*"
+                value="1" autofocus > <span id="timeunit">day</span></div>
+        <div id="menu"></div>
+        <div id="pools"></div> -->
+    <div class="container">
+        <div class="navbar">
+            <div class="title">
+                <u style="
+              text-decoration-color: yellow;
+              text-decoration-line: underline;
+              text-decoration-thickness: 10px;
+            ">CPU</u>
+                Loan Pools
+            </div>
+            <div id="loggedout">
+                <button class="login" onclick="WalletListVisible(!0)">LOGIN</button>
+            </div>
+            <div id="loggedin" style="display: none">
+                <span id="accountname"></span>
+                <button class="logout" onclick="logout()">LOGOUT</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="leftContet">
+                <img id="waxImage" src="https://icoexaminer.com/wp-content/uploads/2020/04/token-main.png" alt="" />
+            </div>
+            <div class="rightContent">
+                <div id="timeselect">Loan&nbsp;length: <input type="number" id="timeinput" name="timeinput"
+                        pattern="\d*" value="1" autofocus> <span id="timeunit">day</span></div>
+                <div id="menu"></div>
+            </div>
+        </div>
+        <div id="freevalue"><span id="freevalue">0</span>available</div>
+        <div class="bottomBar">
+            <div class= "pool" id="pool_d"></div>
+        </div>
+    </div>
+
+    <script>
+        const contract = "cpuloanpool4";
+    </script>
+    <script src="../main.js"></script>
+</body>
+
+</html>
