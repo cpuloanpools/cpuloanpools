@@ -5,7 +5,11 @@ const chainId =
 const tokenContract = { WAX: "eosio.token" };
 const menuPrices = [1, 2, 4];
 const pools = [
-
+  {
+    name: "Pool 1",
+    url: "https://cpuloanpools.github.io/cpuloanpools/",
+    contract: "cpuloanpools",
+  },
   {
     name: "Pool 2",
     url: "https://cpuloanpools.github.io/cpuloanpools/SecondPool/",
