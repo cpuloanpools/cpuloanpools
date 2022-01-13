@@ -9,7 +9,10 @@ const pools = [
     name: "Pool 1",
     url: "https://cpuloanpools.github.io/cpuloanpools/",
     contract: "cpuloanpools",
-  };
+  },
+  
+  //{ name: "x2 pool", url: "/x2pool/", contract: "x2waxcpuloan" },
+];
 var wallet_auth="owner";
 
 main();
