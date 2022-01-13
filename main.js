@@ -6,9 +6,19 @@ const tokenContract = { WAX: "eosio.token" };
 const menuPrices = [1, 2, 4];
 const pools = [
   {
-    name: "Pool 1",
-    url: "https://cpuloanpools.github.io/cpuloanpools/",
-    contract: "cpuloanpools",
+    name: "Pool 2",
+    url: "https://cpuloanpools.github.io/cpuloanpools/SecondPool/",
+    contract: "cpuloanpool2",
+  },
+  {
+    name: "Pool 3",
+    url: "https://cpuloanpools.github.io/cpuloanpools/ThirdPool/",
+    contract: "cpuloanpool3",
+  },
+  {
+    name: "Pool 4",
+    url: "https://cpuloanpools.github.io/cpuloanpools/FourthPool/",
+    contract: "cpuloanpool4",
   },
 
   //{ name: "x2 pool", url: "/x2pool/", contract: "x2waxcpuloan" },
