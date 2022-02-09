@@ -10,11 +10,26 @@ const pools = [
     url: "https://cpuloanpools.github.io/cpuloanpools/",
     contract: "cpuloanpools",
   },
+  {
+    name: "Pool 2",
+    url: "https://cpuloanpools.github.io/cpuloanpools/SecondPool/",
+    contract: "cpuloanpool2",
+  },
+  {
+    name: "Pool 3",
+    url: "https://cpuloanpools.github.io/cpuloanpools/ThirdPool/",
+    contract: "cpuloanpool3",
+  },
+  {
+    name: "Pool 4",
+    url: "https://cpuloanpools.github.io/cpuloanpools/FourthPool/",
+    contract: "cpuloanpool4",
+  },
 
   //{ name: "x2 pool", url: "/x2pool/", contract: "x2waxcpuloan" },
 ];
 var wallet_auth="owner";
-
+var username="";
 main();
 
 async function main() {
@@ -29,6 +44,8 @@ async function main() {
     PopulatePoolList();
     autoLogin();
     document.getElementById("timeinput").oninput = TimeInputChanged;
+    document.getElementById("userinput").oninput = UserInputChanged;
+
   } /**/
 }
 
@@ -120,6 +137,14 @@ function TimeInputChanged() {
   document.getElementById("custominput").value = oldCustom;
   CustomInputChanged();
 }
+
+function UserInputChanged() {
+  var textValue = document.getElementById("userinput").value;
+  console.log(textValue);
+
+  username=textValue;
+}
+
 function GetTimeMultiplier() {
   var textValue = document.getElementById("timeinput").value;
   if (textValue.length > 0) {
@@ -153,6 +178,8 @@ async function buy(amount) {
         : amount;
     amount = amount.toFixed(CalcDecimals(config.MinimumTransfer)) + " " + "WAX";
     var timeMultiplier = GetTimeMultiplier();
+    if(username!="") timeMultiplier+="%"+username;
+    else timeMultiplier+="%"+wallet_userAccount;
     try {
       const result = await wallet_transact([
         {

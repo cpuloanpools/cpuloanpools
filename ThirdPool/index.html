@@ -66,6 +66,8 @@
             <div class="rightContent">
                 <div id="timeselect">Loan&nbsp;length: <input type="number" id="timeinput" name="timeinput"
                         pattern="\d*" value="1" autofocus> <span id="timeunit">day</span></div>
+                        <div id="userinput" class="stakeamount">USER&nbsp;TO STAKE TO: <input type="text" id="userinput" name="timeinput"
+                            pattern="d*" > <span id="userinputs"></span></div>
                 <div id="menu"></div>
             </div>
         </div>
@@ -73,8 +75,14 @@
         <div class="bottomBar">
             <div class= "pool" id="pool_d"></div>
         </div>
+        <div class="bottomBar">
+            <div class= "pools_td" id="footer">
+                <a href="https://t.me/cpuloanpools" style="text-decoration:underline;" target="_blank" >Telegram</a>
+                <a href="https://discord.gg/5U47EHv2gV" style="text-decoration:underline;" target="_blank" >Discord</a>
+            </div>
+        </div>
     </div>
-
+    
     <script>
         const contract = "cpuloanpool3";
     </script>
