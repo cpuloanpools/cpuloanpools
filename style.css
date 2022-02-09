@@ -81,7 +81,7 @@ body {
   overflow: auto;
 }
 .container {
-  width: 400px;
+  width: 100%;
   height: inherit;
   box-sizing: border-box;
 }
@@ -359,8 +359,10 @@ a:-webkit-any-link {
 
 .pools_td {
   padding: 8px 4px 4px 8px;
-  font-size: 20px;
+  font-size: 35px;
+  font-weight: bold;
   color: #000000;
+  text-decoration-style: underline;
 
 }
 .pools_a {
@@ -370,8 +372,4 @@ a:-webkit-any-link {
   font-weight:lighter;
   text-decoration-style: unset;
 }
-.Telegram{
-  margin-right:100px;
-}
-  
 
