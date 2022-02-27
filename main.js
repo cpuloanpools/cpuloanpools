@@ -7,7 +7,7 @@ const menuPrices = [1, 2, 4];
 const pools = [
   {
     name: "Pool 3",
-    url: "https://cpuloanpools.github.io/cpuloanpools/ThirdPool/",
+    url: "https://cpuloanpools.github.io/cpuloanpools",
     contract: "cpuloanpool3",
   },
 
