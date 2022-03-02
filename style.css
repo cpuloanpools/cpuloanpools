@@ -49,6 +49,7 @@ body {
   width: 375px;
   font-family: 'Poppins';
   font-size: 18px;
+  text-align: center;
 }
 
 .container {
@@ -89,7 +90,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content:space-around;
+  justify-content:center;
   margin-top: 5%;
 }
 #accountname{
@@ -293,11 +294,11 @@ a:-webkit-any-link {
   transform: scale(0.9, 0.9);
 }
 .menuentry {
+  width: 305px;
   background: linear-gradient(to bottom right, #dce7ff, #edf7ff);
   text-align: center;
   font-size: 65px;
   text-shadow: 1px 1px 2px #ffffff;
-  width: auto;
 }
 
 #menu {
@@ -323,6 +324,7 @@ a:-webkit-any-link {
   text-decoration: underline;
 }
 .stakeamount {
+  width: 100%;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
@@ -396,12 +398,17 @@ a:-webkit-any-link {
 #ss {
   width: 50px ;
   height: 50px;
-  -moz-box-shadow: 5px 6px 5px #ccc;
-  -webkit-box-shadow: 5px 6px 5px #ccc;
-  box-shadow: 0px 6px 5px #ccc;
+  -moz-box-shadow: 5px 6px 5px rgb(0, 0, 0);
+  -webkit-box-shadow: 5px 6px 5px rgb(0, 0, 0);
+  box-shadow: 0px 6px 5px rgb(0, 0, 0);
   -moz-border-radius:190px;
   -webkit-border-radius:190px;
   border-radius:190px;
+}
+
+#ss:hover{
+  transition-duration: 0.8s;
+  transform: scale(0.8, 0.8);
 }
 
 @media only screen and (max-width: 700px) {
@@ -425,14 +432,14 @@ a:-webkit-any-link {
   }
   
   .usrstk {
-    background-color: white;
-    width: 85vw;
+    align-self: center;
+    width: 305px;
     max-width: 625px;
     margin: 2% 0;
+    background: transparent;
     height: 35px;
     font-size: 20px;
     text-align: center;
-    color: white;
     cursor: pointer;
     font-weight: bold;
     flex-direction: column;
@@ -443,7 +450,7 @@ a:-webkit-any-link {
   }
   
   .usrstktitle{
-    background-color: #16252a;
+    background-color: black;
     width: 100%;
     height: 30px;
     text-align: center;
@@ -464,24 +471,34 @@ a:-webkit-any-link {
   }
 
   .content {
-    width: fit-content;
+    width: 85vw;
     display: flex;
     flex-direction: column;
-    margin-top: 10% !important;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
   }
+
   .leftContent {
     text-align: center;
   }
   #timeselect {
+    align-self: center;
     margin-top: 10px;
     font-size: 20px;
     text-align: center;
     margin-bottom: 10px;
   }
   #menu {
-    display: flex !important;
-    flex-direction: column !important;
+    width: 85vw;
+    display: flex;
+    flex-direction: column;
   }
+
+  .menuentry {
+    width: 305px;
+  }
+
   #poolinfo {
     display: flex !important;
     flex-direction: column !important;
