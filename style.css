@@ -92,6 +92,7 @@ body {
   align-items: center;
   justify-content:center;
   margin-top: 5%;
+  gap: 40px;
 }
 #accountname{
   font-size:25px ;
@@ -417,18 +418,17 @@ a:-webkit-any-link {
     overflow: scroll !important;
   }
   .navbar {
-    width: max-content;
+    width: 100%;
   }
   .title {
-    top: 5%;
     font-size: 15px;
   }
 
   .login,
   .logout {
+    right: 0px;
     font-size: 15px;
     font-weight: bold;
-    top: 5%;
   }
   
   .usrstk {
@@ -477,6 +477,7 @@ a:-webkit-any-link {
     justify-content: center;
     align-items: center;
     margin-top: 10%;
+    gap:10px;
   }
 
   .leftContent {
@@ -513,8 +514,7 @@ a:-webkit-any-link {
     text-align: center;
   }
   #accountname{
-    margin-left: 20px;
-    top: 5%;
+    font-weight: bold;
     font-size:15px;
   }
 
