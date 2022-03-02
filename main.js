@@ -40,8 +40,7 @@ async function main() {
   if (config.Valid) {
     PopulateMenu();
     freeSpace = await GetFreeSpace();
-
-    PopulatePoolList();
+    //PopulatePoolList();
     autoLogin();
     document.getElementById("timeinput").oninput = TimeInputChanged;
     document.getElementById("userinput").oninput = UserInputChanged;
@@ -66,7 +65,6 @@ function PopulateMenu() {
       : '<input type="number" id="custominput" name="custominput" pattern="d*">';
     var disabled = standard ? "" : " disabled";
     var days = (timeMultiplier * config.StakeSeconds) / 3600 / 24;
-    console.log(buyAmount);
     var string = "item" + index;
     menu += '<div  class="menuentry"><table><tr>';
     menu += '<td class="stakeamount">' + stakeAmount + " WAX</td>";
@@ -110,7 +108,7 @@ function PopulatePoolList() {
       " WAX</div></div>";
   }
   html += "</div>";
-  document.getElementById("pool_d").innerHTML = html;
+  //document.getElementById("pool_d").innerHTML = html;
 }
 
 function CustomInputChanged() {
@@ -217,12 +215,11 @@ function CalcDecimals(quantity) {
 }
 
 async function GetFreeSpace() {
-  for (var index = 0; index < pools.length; index++) {
     var path = "/v1/chain/get_table_rows";
     var data = JSON.stringify({
       json: true,
       code: "eosio.token",
-      scope: pools[index].contract,
+      scope: contract,
       table: "accounts",
       lower_bound: "WAX",
       upper_bound: "WAX",
@@ -234,20 +231,14 @@ async function GetFreeSpace() {
       method: "POST",
     });
     const body = await response.json();
+    console.log(body);
     if (body.rows && Array.isArray(body.rows) && body.rows.length == 1) {
-      pools[index].freeSpace = Math.floor(parseFloat(body.rows[0].balance));
-      if (pools[index].contract == contract) {
-        document.getElementById("freevalue").innerHTML =
-          pools[index].name +
-          ": " +
-          pools[index].freeSpace +
-          " WAX" +
-          " available";
-      }
+        document.getElementById("freeval").innerHTML =
+        Math.floor(parseFloat(body.rows[0].balance)) +
+          " wax";
     } else {
       ShowToast("Unexpected response retrieving balance");
     }
-  }
 }
 async function ShowToast(message) {
   var element = document.getElementById("toast");
@@ -289,6 +280,7 @@ async function logout() {
   wallet_logout();
   document.getElementById("loggedin").style.display = "none";
   document.getElementById("loggedout").style.display = "block";
+  document.getElementById("freeval").innerHTML = "0 wax";
   loggedIn = false;
   HideMessage();
 }

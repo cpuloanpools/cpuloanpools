@@ -4,8 +4,10 @@
 <html lang="en">
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,user-scalable=no" />
-<title>CPU LOAN POOLS</title>
+<title>CPU Loan Pool</title>
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="icon" type="image/png" href="https://icoexaminer.com/wp-content/uploads/2020/04/token-main.png" sizes="200x200" />
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <script src="waxjs.js"></script>
 <script src="https://unpkg.com/anchor-link@3"></script>
 <script src="https://unpkg.com/anchor-link-browser-transport@3"></script>
@@ -60,29 +62,32 @@
         </div>
         <div class="content">
             <div class="leftContent">
-                <img id="waxImage" src="https://icoexaminer.com/wp-content/uploads/2020/04/token-main.png" alt="" display="flex" />
+                <img id="waxImage" src="https://icoexaminer.com/wp-content/uploads/2020/04/token-main.png"/>
             </div>
             <div class="rightContent">
-                <div id="timeselect">Loan&nbsp;length: <input type="number" id="timeinput" name="timeinput"
-                        pattern="\d*" value="1" autofocus> <span id="timeunit">day</span></div>
-                        <div id="userselect" class="usrstk">USER&nbsp;TO STAKE TO: <input type="text" id="userinput" name="userinput"
-                            pattern="d*" > <span id="userinputs"></span></div>
+                <div id="timeselect">
+                    <span>Loan length:</span>
+                    <input style="text-align: center; width: 60px;" type="number" id="timeinput" name="timeinput"
+                        pattern="\d*" value="1" autofocus><span id="timeunit"> day</span>
+                </div>
+                <div id="userselect" class="usrstk">
+                    <span class="usrstktitle">USER TO STAKE : </span> 
+                    <input class="userstkinput" type="text" id="userinput" name="userinput" placeholder="LEAVE BLANK FOR SELF STAKE"
+                    pattern="d*" > <span id="userinputs"></span>
+                </div>
                 <div id="menu"></div>
             </div>
         </div>
-        <div id="freevalue"><span id="freevalue">0</span>available</div>
+        <br><br>
+        <div id="freevalue"><span style="font-weight:lighter;font-size: 20px;">current wax available</span><br></span><span id="freeval">0 wax</span></div>
         <div class="bottomBar">
-            <div class= "pool" id="pool_d"></div>
-        </div>
-        <div class="bottomBar">
-               <div class="bottomBarb"> <a  class="ss" href="https://t.me/cpuloanpools" target="_blank"> <img  id="ss" src="discord.png" alt=""  ></a>
-             <a  class="ss" href="https://discord.gg/5U47EHv2gV"  target="_blank"><img  id="ss" src="telegram.png" alt=""  ></a></div>
-            <div>support@cpuloanpools.com</div>
+               <div class="bottomBarb"><a  class="ss" href="https://t.me/cpuloanpools" target="_blank"> <img  id="ss" src="discord.png" alt=""  ></a>
+             <a class="ss" href="https://discord.gg/5U47EHv2gV"  target="_blank"><img  id="ss" src="telegram.png" alt=""  ></a></div>
+            <div><a style="text-decoration: none;font-weight: 500;font-size: 17px;" href="mailto:support@cpuloanpools.com?subject=subject">&nbsp;&nbsp;support@cpuloanpools.com&nbsp;&nbsp;</a></div>
         </div>
     </div>
-
     <script>
-        const contract = "cpuloanpools";
+        const contract = "cpuloanpool2";
     </script>
     <script src="./main.js"></script>
 </body>
