@@ -1,7 +1,18 @@
+const wax = new waxjs.WaxJS({
+  rpcEndpoint: 'https://wax.greymass.com',
+  tryAutoLogin: false
+});
+const transport = new AnchorLinkBrowserTransport();
+const anchorLink = new AnchorLink({
+  transport,
+  chains: [{
+    chainId: '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4',
+    nodeUrl: 'https://wax.greymass.com',
+  }],
+});
+
 const dapp = "WaxCPULoan";
-const endpoint = "wax.eosphere.io";
-const chainId =
-  "1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4";
+const endpoint = "wax.pink.gg";
 const tokenContract = { WAX: "eosio.token" };
 const menuPrices = [1, 2, 4];
 const pools = [
@@ -167,27 +178,33 @@ function ShowMessage(message) {
 function HideMessage(message) {
   document.getElementById("message").style.visibility = "hidden";
 }
-async function buy(amount) {
+const buy = async(amount) =>{
   if (loggedIn) {
-    HideMessage();
-    var amount =
-      amount < 0
-        ? parseFloat(document.getElementById("customamount").innerHTML)
-        : amount;
-    amount = amount.toFixed(CalcDecimals(config.MinimumTransfer)) + " " + "WAX";
-    var timeMultiplier = GetTimeMultiplier();
-    if(username!="") timeMultiplier+="%"+username;
-    else timeMultiplier+="%"+wallet_userAccount;
     try {
+      HideMessage();
+      var amount_total =
+        amount < 0
+          ? parseFloat(document.getElementById("customamount").innerHTML)
+          : amount;
+      decimal_points = CalcDecimals(config.MinimumTransfer);
+      amount_to_transfer = parseFloat(amount_total).toFixed(decimal_points);
+      console.log(amount_to_transfer);
+      var timeMultiplier = GetTimeMultiplier();
+      if(username!="") timeMultiplier+="%"+username;
+      else timeMultiplier+="%"+wallet_userAccount;
+      let symbol = "WAX";
       const result = await wallet_transact([
         {
           account: "eosio.token",
           name: "transfer",
-          authorization: [{ actor: wallet_userAccount, permission: wallet_auth }],
+          authorization: [{
+            actor: wallet_userAccount,
+            permission: wallet_auth
+          }],
           data: {
             from: wallet_userAccount,
             to: contract,
-            quantity: amount,
+            quantity: amount_to_transfer.toString() + " " + symbol,
             memo: timeMultiplier,
           },
         },
@@ -294,16 +311,10 @@ async function login() {
     WalletListVisible(false);
     loggedIn = true;
   } catch (e) {
-    document.getElementById("response").innerHTML = e.message;
+    ShowToast(e.message);
   }
 }
-const wax = new waxjs.WaxJS("https://" + endpoint, null, null, false);
-const anchorTransport = new AnchorLinkBrowserTransport();
-const anchorLink = new AnchorLink({
-  transport: anchorTransport,
-  verifyProofs: true,
-  chains: [{ chainId: chainId, nodeUrl: "https://" + endpoint }],
-});
+
 async function wallet_isAutoLoginAvailable() {
   var sessionList = await anchorLink.listSessions(dapp);
   if (sessionList && sessionList.length > 0) {
@@ -359,31 +370,41 @@ async function wallet_login() {
       wallet_session = (await anchorLink.login(dapp)).session;
     }
     wallet_userAccount = String(wallet_session.auth).split("@")[0];
-    wallet_auth=String(wallet_session.auth).split("@")[1];
+    wallet_auth = String(wallet_session.auth).split("@")[1];
+    anchorAuth = wallet_auth;
+
   } else {
     wallet_userAccount = await wax.login();
     wallet_session = wax.api;
-    wallet_auth="active";
+    wallet_auth = "active";
   }
   return wallet_userAccount;
 }
+
 async function wallet_logout() {
   if (useAnchor) {
     await anchorLink.clearSessions(dapp);
   }
 }
+
 async function wallet_transact(actions) {
   if (useAnchor) {
-    var result = await wallet_session.transact(
-      { actions: actions },
-      { blocksBehind: 3, expireSeconds: 30 }
-    );
-    result = { transaction_id: result.processed.id };
+    var result = await wallet_session.transact({
+      actions: actions
+    }, {
+      blocksBehind: 3,
+      expireSeconds: 30
+    });
+    result = {
+      transaction_id: result.processed.id
+    };
   } else {
-    var result = await wallet_session.transact(
-      { actions: actions },
-      { blocksBehind: 3, expireSeconds: 30 }
-    );
+    var result = await wallet_session.transact({
+      actions: actions
+    }, {
+      blocksBehind: 3,
+      expireSeconds: 30
+    });
   }
   return result;
 }

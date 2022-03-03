@@ -294,12 +294,14 @@ a:-webkit-any-link {
   transition-duration: 0.8s;
   transform: scale(0.9, 0.9);
 }
+
 .menuentry {
   width: 305px;
   background: linear-gradient(to bottom right, #dce7ff, #edf7ff);
   text-align: center;
   font-size: 65px;
   text-shadow: 1px 1px 2px #ffffff;
+  pointer-events: none;
 }
 
 #menu {
@@ -344,6 +346,8 @@ a:-webkit-any-link {
   color: white;
   cursor: pointer;
   font-weight: bold;
+  pointer-events: auto;
+  z-index: 2;
 }
 .buy:hover{
   transition-duration: 0.8s;
@@ -429,6 +433,7 @@ a:-webkit-any-link {
     right: 0px;
     font-size: 15px;
     font-weight: bold;
+    color: black;
   }
   
   .usrstk {
