@@ -12,7 +12,7 @@ const anchorLink = new AnchorLink({
 });
 
 const dapp = "WaxCPULoan";
-const endpoint = "wax.pink.gg";
+const endpoint = "wax.eosphere.io";
 const tokenContract = { WAX: "eosio.token" };
 const menuPrices = [1, 2, 4];
 const pools = [
