@@ -253,6 +253,7 @@ async function GetFreeSpace() {
         document.getElementById("freeval").innerHTML =
         Math.floor(parseFloat(body.rows[0].balance)) +
           " wax";
+        document.getElementById("lowwax").style.display = parseInt(body.rows[0].balance) > 0 ? "none" : "block";
     } else {
       ShowToast("Unexpected response retrieving balance");
     }
@@ -299,6 +300,7 @@ async function logout() {
   document.getElementById("loggedout").style.display = "block";
   document.getElementById("freeval").innerHTML = "0 wax";
   loggedIn = false;
+  document.getElementById("lowwax").style.display = "none";
   HideMessage();
 }
 async function login() {
