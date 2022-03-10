@@ -253,7 +253,7 @@ async function GetFreeSpace() {
         document.getElementById("freeval").innerHTML =
         Math.floor(parseFloat(body.rows[0].balance)) +
           " wax";
-        document.getElementById("lowwax").style.display = parseInt(body.rows[0].balance) > 0 ? "none" : "block";
+        document.getElementById("lowwax").style.display = parseInt(body.rows[0].balance) > 100 ? "none" : "block";
     } else {
       ShowToast("Unexpected response retrieving balance");
     }
