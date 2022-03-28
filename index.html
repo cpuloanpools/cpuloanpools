@@ -67,8 +67,34 @@
             <div class="rightContent">
                 <div id="timeselect">
                     <span>Loan length:</span>
-                    <input style="text-align: center; width: 60px;" type="number" id="timeinput" name="timeinput"
-                        pattern="\d*" value="1" autofocus><span id="timeunit"> day</span>
+                    <div class="dropdown wallet_dropdown">
+                        <input id="timeinput" class="api_dropbtn" type="button" value="By Default 1 day">
+                        <div class="dropdown-content">
+                            <input class="api-buttons" style="margin-top: 10px;" type="button" value="1 day"
+                                onclick="TimeInputChanged('1 day')">
+                            <input class="api-buttons" style="margin-top: 10px;" type="button" value="5 days"
+                                onclick="TimeInputChanged('5 days')">
+                            <input class="api-buttons" style="margin-top: 10px;" type="button" value="10 days"
+                                onclick="TimeInputChanged('10 days')">
+                            <input class="api-buttons" style="margin-top: 10px;" type="button" value="15 days"
+                                onclick="TimeInputChanged('15 days')">
+                            <input class="api-buttons" style="margin-top: 10px;" type="button" value="20 days"
+                                onclick="TimeInputChanged('20 days')">
+                            <input class="api-buttons" style="margin-top: 10px;" type="button" value="25 days"
+                                onclick="TimeInputChanged('25 days')">
+                            <input class="api-buttons" style="margin-top: 10px;margin-bottom: 10px;" type="button" value="30 dayS"
+                                onclick="TimeInputChanged('30 days')">
+                            
+                        </div>
+                    </div>
+                    <!-- <input style="text-align: center; width: 60px;" type="number" id="timeinput" name="timeinput"
+                        pattern="\d*" value="1" autofocus><span id="timeunit"> day</span> -->
+                </div>
+                <div id="lowwax" class="low_wax">
+                    <div style="width: 100%;height: 100%;background-color: black;border:2px white solid;text-align: center;">
+                        <span class="lowwax" id="lowtxt" style="display: none;">WAX SUPPLY IS LOW RIGHT NOW,<br> WAX SHOULD BE AVAILABLE AGAIN AT 17:30 UTC</span>
+                        <span class="lowwax" id="distxt">60% DISCOUNT ( 0.4% FEE / day )<br>FOR 5 DAYS OR MORE CPU LOANS </span>
+                    </div> 
                 </div>
                 <div id="userselect" class="usrstk">
                     <span class="usrstktitle">USER TO STAKE : </span> 
@@ -76,10 +102,6 @@
                     pattern="d*" > <span id="userinputs"></span>
                 </div>
                 <div id="menu"></div>
-                <div id="lowwax" class="low_wax" style="display: none;">
-                    <div style="width: 100%;height: 100%;background-color: black;border:2px white solid;text-align: center;">
-                        <span class="lowwax">WAX SUPPLY IS LOW RIGHT NOW,<br> WAX SHOULD BE AVAILABLE AGAIN AT 17:30 UTC</span></div> 
-                </div>
             </div>
         </div>
         <div id="freevalue"><span style="font-weight:lighter;font-size: 20px;">current wax available</span><br></span><span id="freeval">0 wax</span></div>
@@ -90,7 +112,7 @@
         </div>
     </div>
     <script>
-        const contract = "cpuloanpools";
+        const contract = "cpuloanpool2";
     </script>
     <script src="./main.js"></script>
 </body>

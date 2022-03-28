@@ -15,8 +15,34 @@ const dapp = "WaxCPULoan";
 const endpoint = "wax.eosphere.io";
 const tokenContract = { WAX: "eosio.token" };
 const menuPrices = [1, 2, 4];
+const default_wax_value = 100;
+const pools = [
+  {
+    name: "Pool 1",
+    url: "https://cpuloanpools.github.io/cpuloanpools/",
+    contract: "cpuloanpools",
+  },
+  {
+    name: "Pool 2",
+    url: "https://cpuloanpools.github.io/cpuloanpools/SecondPool/",
+    contract: "cpuloanpool2",
+  },
+  {
+    name: "Pool 3",
+    url: "https://cpuloanpools.github.io/cpuloanpools/ThirdPool/",
+    contract: "cpuloanpool3",
+  },
+  {
+    name: "Pool 4",
+    url: "https://cpuloanpools.github.io/cpuloanpools/FourthPool/",
+    contract: "cpuloanpool4",
+  },
+
+  //{ name: "x2 pool", url: "/x2pool/", contract: "x2waxcpuloan" },
+];
 var wallet_auth="owner";
 var username="";
+var day_count = 1;
 main();
 
 async function main() {
@@ -29,7 +55,6 @@ async function main() {
     freeSpace = await GetFreeSpace();
     //PopulatePoolList();
     autoLogin();
-    document.getElementById("timeinput").oninput = TimeInputChanged;
     document.getElementById("userinput").oninput = UserInputChanged;
 
   } /**/
@@ -38,18 +63,25 @@ async function main() {
 function PopulateMenu() {
   var menu = "";
   var symbol = "WAX";
+  console.log(menuPrices);
   for (var index = 0; index <= menuPrices.length; ++index) {
     var timeMultiplier = GetTimeMultiplier();
     console.log(timeMultiplier);
-    console.log(config.StakeSeconds);
+    console.log(config);
 
     var standard = index < menuPrices.length;
+    var fee_rate = "";
+    for(const mdata of config.Multiplier){
+      if(parseInt(mdata.days) == timeMultiplier){
+        fee_rate = (parseFloat(mdata.fees) / 100).toFixed(2);
+      }
+    }
     var buyAmount = standard
-      ? menuPrices[index] * timeMultiplier
+      ? menuPrices[index] * default_wax_value * fee_rate
       : '<span id="customamount"></span>';
     var stakeAmount = standard
-      ? menuPrices[index] * config.Multiplier
-      : '<input type="number" id="custominput" name="custominput" pattern="d*">';
+    ? menuPrices[index] * default_wax_value
+    : '<input type="number" id="custominput" name="custominput" pattern="d*">';
     var disabled = standard ? "" : " disabled";
     var days = (timeMultiplier * config.StakeSeconds) / 3600 / 24;
     var string = "item" + index;
@@ -66,7 +98,7 @@ function PopulateMenu() {
       index +
       '" class="buy" onclick=' +
       "buy(" +
-      (standard ? menuPrices[index] * timeMultiplier : -1) +
+      (standard ? buyAmount : -1) +
       ")" +
       disabled +
       ">" +
@@ -103,12 +135,24 @@ function CustomInputChanged() {
   element.value = parseInt(element.value);
   var valid = element.value > 0;
   var timeMultiplier = GetTimeMultiplier();
-  document.getElementById("customamount").innerHTML =
-    (timeMultiplier * element.value) / config.Multiplier;
-  document.getElementById("buy" + menuPrices.length).disabled = !valid;
+  for(const mdata of config.Multiplier){
+    if(timeMultiplier == parseInt(mdata.days)){
+      document.getElementById("customamount").innerHTML =
+      (parseFloat(mdata.fees)/100).toFixed(2) * element.value;
+      document.getElementById("buy" + menuPrices.length).disabled = !valid;   
+      break;
+    }
+  }
 }
-function TimeInputChanged() {
-  var textValue = document.getElementById("timeinput").value;
+
+async function TimeInputChanged(day_val) {
+
+  day_count = day_val.split(' ')[0];
+  document.getElementById("timeinput").value = day_val;
+  console.log(day_count);
+  PopulateMenu();
+  CustomInputChanged();
+  /*var textValue = document.getElementById("timeinput").value;
   if (textValue.length > 0) {
     var value = parseInt(textValue);
     if (value < 1) {
@@ -120,7 +164,7 @@ function TimeInputChanged() {
   var oldCustom = document.getElementById("custominput").value;
   PopulateMenu();
   document.getElementById("custominput").value = oldCustom;
-  CustomInputChanged();
+  CustomInputChanged();*/
 }
 
 function UserInputChanged() {
@@ -133,7 +177,7 @@ function UserInputChanged() {
 function GetTimeMultiplier() {
   var textValue = document.getElementById("timeinput").value;
   if (textValue.length > 0) {
-    var timeMultiplier = parseInt(textValue);
+    var timeMultiplier = textValue == "By Default 1 day" ? 1 : parseInt(textValue);
     if (timeMultiplier < 1) {
       timeMultiplier = 1;
     }
@@ -229,7 +273,8 @@ async function GetFreeSpace() {
         document.getElementById("freeval").innerHTML =
         Math.floor(parseFloat(body.rows[0].balance)) +
           " wax";
-        document.getElementById("lowwax").style.display = parseInt(body.rows[0].balance) > 100 ? "none" : "block";
+        document.getElementById("lowtxt").style.display = parseInt(body.rows[0].balance) > 100 ? "none" : "block";
+        document.getElementById("distxt").style.display = parseInt(body.rows[0].balance) > 100 ? "block" : "none";
     } else {
       ShowToast("Unexpected response retrieving balance");
     }
@@ -276,7 +321,6 @@ async function logout() {
   document.getElementById("loggedout").style.display = "block";
   document.getElementById("freeval").innerHTML = "0 wax";
   loggedIn = false;
-  document.getElementById("lowwax").style.display = "none";
   HideMessage();
 }
 async function login() {
@@ -328,7 +372,7 @@ async function GetConfig() {
       Valid: true,
       StakeSeconds: parseInt(body.rows[0].unstakeSeconds),
       MinimumTransfer: body.rows[0].min_amount,
-      Multiplier: parseInt(body.rows[0].cpu_multiplier),
+      Multiplier: body.rows[0].cpu_multiplier,
     };
   } else {
     ShowToast("Unexpected response retrieving config");
