@@ -184,7 +184,7 @@ function UserInputChanged() {
 function GetTimeMultiplier() {
   var textValue = document.getElementById("timeinput").value;
   if (textValue.length > 0) {
-    var timeMultiplier = textValue == "By Default 1 day" ? 1 : parseInt(textValue);
+    var timeMultiplier = textValue == "24 HOURS" ? 1 : parseInt(textValue);
     if (timeMultiplier < 1) {
       timeMultiplier = 1;
     }
