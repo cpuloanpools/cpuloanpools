@@ -32,7 +32,7 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 5px;
+  gap: 2px;
 }
 
 .low_wax {
@@ -57,15 +57,24 @@ body {
 
 
 .usrstktitle{
+  display: block;
   background-color: #16252a;
-  margin-left: 3px;
+  border: 2px solid white;
   width: 250px;
   height: 90%;
   text-align: center;
 }
 
+.usrtimetitle{
+  display: block;
+  background-color: #16252a;
+  border: 2px solid white;
+  width: 45%;
+  height: 90%;
+  text-align: center;
+}
+
 .userstkinput{
-  border: 2px solid black;
   height: 90%;
   width: 375px;
   font-family: 'Poppins';
@@ -139,7 +148,7 @@ body {
 .rightContent {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
 }
 
@@ -338,10 +347,22 @@ a:-webkit-any-link {
   justify-content: center;
 }
 
-#timeselect {
-  width: 100%;
-  height:8vh;
-  text-shadow: 1px 1px 2px #f7eeee;
+.timeselect {
+  background-color: white;
+  width: 50vw;
+  max-width: 420px;
+  margin: 2% 0;
+  height: 35px;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2px;
 }
 
 .stakeamount {
@@ -443,7 +464,7 @@ a:-webkit-any-link {
 }
 
 .api-buttons{
-  font-family: Poppins;
+  font-family: 'Poppins';
   display: block;
   text-align: center;
   width: 100%;
@@ -451,10 +472,8 @@ a:-webkit-any-link {
   background: transparent;
   color: white;
   border: none;
-  border-radius: 6px;
   font-size: 16px;
   text-decoration: none;
-  font-weight: normal;
   cursor: pointer;
 }
 .api-buttons:hover,.sidebar-buttons:hover{
@@ -498,9 +517,8 @@ a:-webkit-any-link {
 }
 .wallet_dropdown{
   border: 1px solid black;
-  border-radius: 8px;
-  width: 50%;
-  height: 100%;
+  width:52.5%;
+  height: 80%;
   text-align: center;
   justify-content: center;
 }
@@ -508,13 +526,13 @@ a:-webkit-any-link {
   text-align: center;
   width: 100%;
   height: 100%;
+  opacity: 0.5;
   letter-spacing: 3px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
+  background-color: white;
+  color: black;
   font-size: 15px;
   border: 1px solid white;
   cursor: pointer;
-  border-radius: 8px;
   font-weight: bold;
 }
 
@@ -543,7 +561,7 @@ a:-webkit-any-link {
     width: 305px;
     max-width: 625px;
     margin: 2% 0;
-    background: transparent;
+    background: white;
     height: 35px;
     font-size: 20px;
     text-align: center;
@@ -554,7 +572,34 @@ a:-webkit-any-link {
     align-items: center;
     height: 60px;
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
+
+  .timeselect {
+    align-self: center;
+    width: 305px;
+    max-width: 625px;
+    margin: 2% 0;
+    background: white;
+    height: 35px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
 
   .low_wax{
     align-self: center;
@@ -579,6 +624,12 @@ a:-webkit-any-link {
     text-align: center;
     order: 1;
   }
+
+  .usrtimetitle{
+    width: 100%;
+    height: 30px;
+    text-align: center;
+  }
   
   .userstkinput{
     border: 1px solid black;
@@ -586,6 +637,11 @@ a:-webkit-any-link {
     height: 30px;
     text-align: center;
     order: 2;
+  }
+
+  .api_dropbtn {
+    opacity: 0.6;
+    font-size: 18px;
   }
 
   #waxImage {
@@ -659,8 +715,11 @@ a:-webkit-any-link {
   }
 
   .wallet_dropdown{
-    width: 50%;
-    height: 60%;
+    border: 1px solid black;
+    width:100%;
+    height: 30px;
+    text-align: center;
+    justify-content: center;
   }
 
   .api_dropbtn{

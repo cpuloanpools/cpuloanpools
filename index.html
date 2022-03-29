@@ -65,12 +65,12 @@
                 <img id="waxImage" src="https://icoexaminer.com/wp-content/uploads/2020/04/token-main.png"/>
             </div>
             <div class="rightContent">
-                <div id="timeselect">
-                    <span>Loan length:</span>
+                <div id="timeselect" class="timeselect">
+                    <span class="usrtimetitle">LOAN LENGTH : </span> 
                     <div class="dropdown wallet_dropdown">
-                        <input id="timeinput" class="api_dropbtn" type="button" value="By Default 1 day">
-                        <div class="dropdown-content">
-                            <input class="api-buttons" style="margin-top: 10px;" type="button" value="1 day"
+                        <input id="timeinput" class="api_dropbtn" type="button" onclick="show_drpdown()" value="24 HOURS">
+                        <div class="dropdown-content" id="drop_content">
+                            <input class="api-buttons" style="margin-top: 10px;" type="button" value="24 Hours"
                                 onclick="TimeInputChanged('1 day')">
                             <input class="api-buttons" style="margin-top: 10px;" type="button" value="5 days"
                                 onclick="TimeInputChanged('5 days')">
@@ -84,11 +84,8 @@
                                 onclick="TimeInputChanged('25 days')">
                             <input class="api-buttons" style="margin-top: 10px;margin-bottom: 10px;" type="button" value="30 dayS"
                                 onclick="TimeInputChanged('30 days')">
-                            
                         </div>
                     </div>
-                    <!-- <input style="text-align: center; width: 60px;" type="number" id="timeinput" name="timeinput"
-                        pattern="\d*" value="1" autofocus><span id="timeunit"> day</span> -->
                 </div>
                 <div id="lowwax" class="low_wax">
                     <div style="width: 100%;height: 100%;background-color: black;border:2px white solid;text-align: center;">

@@ -70,12 +70,13 @@ function PopulateMenu() {
     console.log(config);
 
     var standard = index < menuPrices.length;
-    var fee_rate = "";
+    let fee_rate;
     for(const mdata of config.Multiplier){
       if(parseInt(mdata.days) == timeMultiplier){
-        fee_rate = (parseFloat(mdata.fees) / 100).toFixed(2);
+        fee_rate = (parseFloat(mdata.fees) / 100);
       }
     }
+    console.log(fee_rate);
     var buyAmount = standard
       ? menuPrices[index] * default_wax_value * fee_rate
       : '<span id="customamount"></span>';
@@ -138,18 +139,24 @@ function CustomInputChanged() {
   for(const mdata of config.Multiplier){
     if(timeMultiplier == parseInt(mdata.days)){
       document.getElementById("customamount").innerHTML =
-      (parseFloat(mdata.fees)/100).toFixed(2) * element.value;
+      (parseFloat(mdata.fees)/100) * element.value;
       document.getElementById("buy" + menuPrices.length).disabled = !valid;   
       break;
     }
   }
 }
 
-async function TimeInputChanged(day_val) {
+async function show_drpdown(){
+  if(document.getElementById("drop_content").style.display == "block")
+    document.getElementById("drop_content").style.display = "none";
+  else
+    document.getElementById("drop_content").style.display = "block";
+}
 
+async function TimeInputChanged(day_val) {
+  document.getElementById("drop_content").style.display = "none";
   day_count = day_val.split(' ')[0];
   document.getElementById("timeinput").value = day_val;
-  console.log(day_count);
   PopulateMenu();
   CustomInputChanged();
   /*var textValue = document.getElementById("timeinput").value;
