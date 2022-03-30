@@ -159,19 +159,6 @@ async function TimeInputChanged(day_val) {
   document.getElementById("timeinput").value = day_val;
   PopulateMenu();
   CustomInputChanged();
-  /*var textValue = document.getElementById("timeinput").value;
-  if (textValue.length > 0) {
-    var value = parseInt(textValue);
-    if (value < 1) {
-      value = 1;
-    }
-    document.getElementById("timeinput").value = value;
-    document.getElementById("timeunit").innerHTML = value > 1 ? "days" : "day";
-  }
-  var oldCustom = document.getElementById("custominput").value;
-  PopulateMenu();
-  document.getElementById("custominput").value = oldCustom;
-  CustomInputChanged();*/
 }
 
 function UserInputChanged() {
@@ -184,7 +171,7 @@ function UserInputChanged() {
 function GetTimeMultiplier() {
   var textValue = document.getElementById("timeinput").value;
   if (textValue.length > 0) {
-    var timeMultiplier = textValue == "24 HOURS" ? 1 : parseInt(textValue);
+    var timeMultiplier = textValue == "24 Hours" ? 1 : parseInt(textValue);
     if (timeMultiplier < 1) {
       timeMultiplier = 1;
     }
