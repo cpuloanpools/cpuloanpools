@@ -457,6 +457,7 @@ a:-webkit-any-link {
   width: 100%;
   height: 80%;
   font-size: 18px;
+  margin-top: 8px; 
 }
 
 .api-buttons{
@@ -709,6 +710,7 @@ a:-webkit-any-link {
   }
   .lowwax{
     font-size: 15px;
+    margin-top: 12px;
   }
 
   .wallet_dropdown{
