@@ -1,18 +1,21 @@
+//const endpoint = "https://wax.greymass.com"; // Main-net
+const endpoint = "https://waxtestnet.greymass.com"; // Test-net
+//const chainid = '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a'; //Main-net
+const chainid = 'f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12'; //Test net
 const wax = new waxjs.WaxJS({
-  rpcEndpoint: 'https://wax.greymass.com',
+  rpcEndpoint: "https://wax.greymass.com",
   tryAutoLogin: false
 });
 const transport = new AnchorLinkBrowserTransport();
 const anchorLink = new AnchorLink({
   transport,
   chains: [{
-    chainId: 'f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12',
-    nodeUrl: 'https://waxtestnet.greymass.com',
+    chainId: chainid,
+    nodeUrl: "https://wax.greymass.com",
   }],
 });
 
 const dapp = "WaxCPULoan";
-const endpoint = "waxtestnet.greymass.com";
 const tokenContract = { WAX: "eosio.token" };
 const menuPrices = [1, 2, 4];
 const default_wax_value = 100;
@@ -53,19 +56,39 @@ async function main() {
   if (config.Valid) {
     PopulateMenu();
     freeSpace = await GetFreeSpace();
-    //PopulatePoolList();
+    await populateDropdown();
     autoLogin();
     document.getElementById("userinput").oninput = UserInputChanged;
 
   } /**/
 }
 
-function PopulateMenu() {
+async function populateDropdown(){
+  var drop_down_parent = document.getElementById("drop_content");
+  var child = drop_down_parent.lastElementChild; 
+  while (child) {
+    drop_down_parent.removeChild(child);
+    child = drop_down_parent.lastElementChild;
+  }
+  for(const cdata of config.Multiplier){
+    var day_val = cdata.days;
+    day_val = day_val == "1" ? "24 Hours" : day_val + " days";
+    var dropdown = document.createElement('input');
+    dropdown.type = "button";
+    dropdown.className = "api-buttons";
+    dropdown.value = day_val;
+    dropdown.setAttribute("onclick",'TimeInputChanged("'+day_val+'");');
+    dropdown.style = "margin-top: 10px;";
+    drop_down_parent.appendChild(dropdown);
+  }
+}
+
+async function PopulateMenu() {
   var menu = "";
   var symbol = "WAX";
   console.log(menuPrices);
   for (var index = 0; index <= menuPrices.length; ++index) {
-    var timeMultiplier = GetTimeMultiplier();
+    var timeMultiplier = await GetTimeMultiplier();
     console.log(timeMultiplier);
     console.log(config);
 
@@ -73,13 +96,14 @@ function PopulateMenu() {
     let fee_rate;
     for(const mdata of config.Multiplier){
       if(parseInt(mdata.days) == timeMultiplier){
-        fee_rate = (parseFloat(mdata.fees) / 100);
+        fee_rate = (parseFloat(mdata.fees).toFixed(8) / 100);
       }
     }
     console.log(fee_rate);
     var buyAmount = standard
       ? menuPrices[index] * default_wax_value * fee_rate
       : '<span id="customamount"></span>';
+    console.log(buyAmount);
     var stakeAmount = standard
     ? menuPrices[index] * default_wax_value
     : '<input type="number" id="custominput" name="custominput" pattern="d*">';
@@ -168,7 +192,7 @@ function UserInputChanged() {
   username=textValue;
 }
 
-function GetTimeMultiplier() {
+async function GetTimeMultiplier() {
   var textValue = document.getElementById("timeinput").value;
   if (textValue.length > 0) {
     var timeMultiplier = textValue == "24 Hours" || textValue == "24 HOURS" ? 1 : parseInt(textValue);
@@ -256,7 +280,7 @@ async function GetFreeSpace() {
       upper_bound: "WAX",
       limit: 1,
     });
-    const response = await fetch("https://" + endpoint + path, {
+    const response = await fetch(endpoint + path, {
       headers: { "Content-Type": "text/plain" },
       body: data,
       method: "POST",
@@ -353,7 +377,7 @@ async function GetConfig() {
     limit: 1,
   });
 
-  const response = await fetch("https://" + endpoint + path, {
+  const response = await fetch(endpoint + path, {
     headers: { "Content-Type": "text/plain" },
     body: data,
     method: "POST",
