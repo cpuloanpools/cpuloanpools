@@ -70,6 +70,7 @@ async function populateDropdown(){
     drop_down_parent.removeChild(child);
     child = drop_down_parent.lastElementChild;
   }
+  let i = 1;
   for(const cdata of config.Multiplier){
     var day_val = cdata.days;
     day_val = day_val == "1" ? "24 Hours" : day_val + " days";
@@ -77,10 +78,13 @@ async function populateDropdown(){
     dropdown.type = "button";
     dropdown.className = "api-buttons";
     dropdown.value = day_val;
+    dropdown.id = i+"dropdown";
     dropdown.setAttribute("onclick",'TimeInputChanged("'+day_val+'");');
     dropdown.style = "margin-top: 10px;";
     drop_down_parent.appendChild(dropdown);
+    i++;
   }
+  document.getElementById(config.Multiplier.length+"dropdown").style.marginBottom = "10px";
 }
 
 async function PopulateMenu() {
@@ -101,8 +105,7 @@ async function PopulateMenu() {
     }
     console.log(fee_rate);
     var buyAmount = standard
-      ? menuPrices[index] * default_wax_value * fee_rate
-      : '<span id="customamount"></span>';
+      ? menuPrices[index] * default_wax_value * fee_rate : '<span id="customamount"></span>';
     console.log(buyAmount);
     var stakeAmount = standard
     ? menuPrices[index] * default_wax_value
@@ -128,7 +131,7 @@ async function PopulateMenu() {
       disabled +
       ">" +
       "BUY NOW " +
-      buyAmount +
+      (standard ? parseFloat(buyAmount).toFixed(2) : buyAmount) +
       " " +
       symbol +
       "</button></td>";
@@ -155,15 +158,16 @@ function PopulatePoolList() {
   //document.getElementById("pool_d").innerHTML = html;
 }
 
-function CustomInputChanged() {
+async function CustomInputChanged() {
   var element = document.getElementById("custominput");
   element.value = parseInt(element.value);
+  console.log(element.value);
   var valid = element.value > 0;
-  var timeMultiplier = GetTimeMultiplier();
+  var timeMultiplier = await GetTimeMultiplier();
   for(const mdata of config.Multiplier){
+    console.log(mdata);
     if(timeMultiplier == parseInt(mdata.days)){
-      document.getElementById("customamount").innerHTML =
-      (parseFloat(mdata.fees)/100) * element.value;
+      document.getElementById("customamount").textContent = parseFloat((parseFloat(mdata.fees).toFixed(8)/100) * element.value).toFixed(2);
       document.getElementById("buy" + menuPrices.length).disabled = !valid;   
       break;
     }
