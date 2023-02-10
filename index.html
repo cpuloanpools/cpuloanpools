@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width,user-scalable=no" />
 <title>CPU Loan Pool</title>
 <link rel="stylesheet" href="style.css" type="text/css" />
-<link rel="icon" type="image/png" href="https://icoexaminer.com/wp-content/uploads/2020/04/token-main.png" sizes="200x200" />
+<link rel="icon" type="image/png" href="https://icoexaminer.com/wp-content/uploads/2020/04/token-main.png"
+    sizes="200x200" />
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <script src="waxjs.js"></script>
 <script src="https://unpkg.com/anchor-link@3"></script>
@@ -33,24 +34,10 @@
         <div><button class="close" onclick="HideMessage()">x</button></div>
         <div id="messagecontent"></div>
     </div>
-
-    <!-- <div id="heading">CPU Loan Pools</div>
-        <div id="loggedout"><button class="login" onclick="WalletListVisible(!0)">Login</button></div>
-        <div id="loggedin" style="display:none"><span id="accountname"></span> <button class="logout"
-                onclick="logout()">Logout</button></div>
-        <div id="timeselect">Loan&nbsp;length: <input type="number" id="timeinput" name="timeinput" pattern="\d*"
-                value="1" autofocus > <span id="timeunit">day</span></div>
-        <div id="menu"></div>
-        <div id="pools"></div> -->
     <div class="container">
         <div class="navbar">
             <div class="title">
-                <u style="
-              text-decoration-color: yellow;
-              text-decoration-line: underline;
-              text-decoration-thickness: 10px;
-            ">CPU</u>
-                Loan Pools
+                <u style="text-decoration-color: yellow;text-decoration-line: underline;text-decoration-thickness: 10px;">CPU</u>Loan Pool
             </div>
             <div id="loggedout">
                 <button class="login" onclick="WalletListVisible(!0)">LOGIN</button>
@@ -62,41 +49,48 @@
         </div>
         <div class="content">
             <div class="leftContent">
-                <img id="waxImage" src="https://icoexaminer.com/wp-content/uploads/2020/04/token-main.png"/>
+                <img id="waxImage" src="wax.png" />
             </div>
             <div class="rightContent">
                 <div id="timeselect" class="timeselect">
-                    <span class="usrtimetitle">LOAN LENGTH : </span> 
+                    <span class="usrtimetitle">LOAN LENGTH : </span>
                     <div class="dropdown wallet_dropdown">
-                        <input id="timeinput" class="api_dropbtn" type="button" onclick="show_drpdown()" value="24 Hours">
+                        <input id="timeinput" class="api_dropbtn" type="button" onclick="show_drpdown()"
+                            value="24 Hours">
                         <div class="dropdown-content" id="drop_content">
                         </div>
                     </div>
                 </div>
                 <div id="lowwax" class="low_wax">
-                    <div style="width: 100%;height: 100%;background-color: black;border:2px white solid;text-align: center;">
-                        <span class="lowwax" id="lowtxt" style="display: none;">WAX SUPPLY IS LOW RIGHT NOW,<br> WAX SHOULD BE AVAILABLE AGAIN AT 17:30 UTC</span>
-                        <span class="lowwax" id="distxt">60% DISCOUNT ( 0.4% FEE / day )<br>FOR 5 DAYS OR MORE CPU LOANS </span>
-                    </div> 
+                    <div
+                        style="width: 100%;height: 100%;background-color: black;border:2px white solid;text-align: center;">
+                        <span class="lowwax" id="lowtxt" style="display: none;">WAX SUPPLY IS LOW RIGHT NOW,<br> WAX
+                            SHOULD BE AVAILABLE AGAIN AT 17:30 UTC</span>
+                        <span class="lowwax" id="distxt">60% DISCOUNT ( 0.2% FEE / day )<br>FOR 5 DAYS OR MORE CPU LOANS
+                        </span>
+                    </div>
                 </div>
                 <div id="userselect" class="usrstk">
-                    <span class="usrstktitle">USER TO STAKE : </span> 
-                    <input class="userstkinput" type="text" id="userinput" name="userinput" placeholder="LEAVE BLANK FOR SELF STAKE"
-                    pattern="d*" > <span id="userinputs"></span>
+                    <span class="usrstktitle">USER TO STAKE : </span>
+                    <input class="userstkinput" type="text" id="userinput" name="userinput"
+                        placeholder="LEAVE BLANK FOR SELF STAKE" pattern="d*"> <span id="userinputs"></span>
                 </div>
                 <div id="menu"></div>
             </div>
         </div>
-        <div id="freevalue"><span style="font-weight:lighter;font-size: 20px;">current wax available</span><br></span><span id="freeval">0 wax</span></div>
+        <div id="freevalue"><span style="font-weight:lighter;font-size: 20px;">current wax
+                available</span><br></span><span id="freeval">0 wax</span></div>
         <div class="bottomBar">
-               <div class="bottomBarb"><a  class="ss" href="https://discord.gg/5U47EHv2gV" target="_blank"> <img  id="ss" src="discord.png" alt=""  ></a>
-             <a class="ss" href="https://t.me/cpuloanpools"  target="_blank"><img  id="ss" src="telegram.png" alt=""  ></a></div>
-            <div><a style="text-decoration: none;font-weight: 500;font-size: 17px;" href="mailto:support@cpuloanpools.com?subject=subject">&nbsp;&nbsp;support@cpuloanpools.com&nbsp;&nbsp;</a></div>
+            <div class="bottomBarb"><a class="ss" href="https://discord.gg/5U47EHv2gV" target="_blank"> <img id="ss"
+                        src="discord.png" alt=""></a>
+                <a class="ss" href="https://t.me/cpuloanpools" target="_blank"><img id="ss" src="telegram.png"
+                        alt=""></a>
+            </div>
+            <div><a style="text-decoration: none;font-weight: 500;font-size: 17px;"
+                    href="mailto:support@cpuloanpools.com?subject=subject">&nbsp;&nbsp;support@cpuloanpool.com&nbsp;&nbsp;</a>
+            </div>
         </div>
     </div>
-    <script>
-        const contract = "cpuloanpool3";
-    </script>
     <script src="./main.js"></script>
 </body>
 

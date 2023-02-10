@@ -22,40 +22,38 @@ const default_wax_value = 100;
 const pools = [
   {
     name: "Pool 1",
-    url: "https://cpuloanpools.github.io/cpuloanpools/",
+    url: "https://cpuloanpool.com/",
     contract: "cpuloanpools",
   },
   {
+    name: "Pool 4",
+    url: "https://cpuloanpool.com/FourthPool/",
+    contract: "cpuloanpool4",
+  },
+  {
     name: "Pool 2",
-    url: "https://cpuloanpools.github.io/cpuloanpools/SecondPool/",
+    url: "https://cpuloanpool.com/SecondPool/",
     contract: "cpuloanpool2",
   },
   {
     name: "Pool 3",
-    url: "https://cpuloanpools.github.io/cpuloanpools/ThirdPool/",
+    url: "https://cpuloanpool.com/ThirdPool/",
     contract: "cpuloanpool3",
   },
-  {
-    name: "Pool 4",
-    url: "https://cpuloanpools.github.io/cpuloanpools/FourthPool/",
-    contract: "cpuloanpool4",
-  },
-
-  //{ name: "x2 pool", url: "/x2pool/", contract: "x2waxcpuloan" },
 ];
 var wallet_auth="owner";
 var username="";
 var day_count = 1;
+var contract = "";
 main();
 
 async function main() {
   loggedIn = false;
+  await GetPool();
   configPromise = GetConfig();
   config = await configPromise;
-  console.log(config);
   if (config.Valid) {
     PopulateMenu();
-    freeSpace = await GetFreeSpace();
     await populateDropdown();
     autoLogin();
     document.getElementById("userinput").oninput = UserInputChanged;
@@ -90,11 +88,8 @@ async function populateDropdown(){
 async function PopulateMenu() {
   var menu = "";
   var symbol = "WAX";
-  console.log(menuPrices);
   for (var index = 0; index <= menuPrices.length; ++index) {
     var timeMultiplier = await GetTimeMultiplier();
-    console.log(timeMultiplier);
-    console.log(config);
 
     var standard = index < menuPrices.length;
     let fee_rate;
@@ -103,10 +98,8 @@ async function PopulateMenu() {
         fee_rate = (parseFloat(mdata.fees).toFixed(8) / 100);
       }
     }
-    console.log(fee_rate);
     var buyAmount = standard
       ? menuPrices[index] * default_wax_value * fee_rate : '<span id="customamount"></span>';
-    console.log(buyAmount);
     var stakeAmount = standard
     ? menuPrices[index] * default_wax_value
     : '<input type="number" id="custominput" name="custominput" pattern="d*">';
@@ -141,31 +134,12 @@ async function PopulateMenu() {
   document.getElementById("custominput").oninput = CustomInputChanged;
 }
 
-function PopulatePoolList() {
-  var html = '<div  id="poolinfo">';
-  for (var index = 0; index < pools.length; ++index) {
-    html +=
-      '<div  class="pools_td"><a href="' +
-      pools[index].url +
-      ' "style="text-decoration:underline;" >' +
-      
-      pools[index].name +
-      "</a><br>" +'<div class="pools_a">'+
-      pools[index].freeSpace +
-      " WAX</div></div>";
-  }
-  html += "</div>";
-  //document.getElementById("pool_d").innerHTML = html;
-}
-
 async function CustomInputChanged() {
   var element = document.getElementById("custominput");
   element.value = parseInt(element.value);
-  console.log(element.value);
   var valid = element.value > 0;
   var timeMultiplier = await GetTimeMultiplier();
   for(const mdata of config.Multiplier){
-    console.log(mdata);
     if(timeMultiplier == parseInt(mdata.days)){
       document.getElementById("customamount").textContent = parseFloat((parseFloat(mdata.fees).toFixed(8)/100) * element.value).toFixed(2);
       document.getElementById("buy" + menuPrices.length).disabled = !valid;   
@@ -191,8 +165,6 @@ async function TimeInputChanged(day_val) {
 
 function UserInputChanged() {
   var textValue = document.getElementById("userinput").value;
-  console.log(textValue);
-
   username=textValue;
 }
 
@@ -230,7 +202,6 @@ const buy = async(amount) =>{
           : amount;
       decimal_points = CalcDecimals(config.MinimumTransfer);
       amount_to_transfer = parseFloat(amount_total).toFixed(decimal_points);
-      console.log(amount_to_transfer);
       var timeMultiplier = await GetTimeMultiplier();
       if(username!="") timeMultiplier+="%"+username;
       else timeMultiplier+="%"+wallet_userAccount;
@@ -273,12 +244,28 @@ function CalcDecimals(quantity) {
   return 0;
 }
 
-async function GetFreeSpace() {
+async function GetPool(){
+  var is_avb = false;
+  for(const p of pools){
+    var balance = await GetFreeSpace(p.contract);
+    balance = parseFloat(balance.balance).toFixed(0);
+    if(balance >= 100){
+      contract = p.contract;
+      document.getElementById("freeval").innerHTML = balance + " wax";
+      is_avb = true;
+      break;
+    }
+  }
+  document.getElementById("lowtxt").style.display = is_avb ? "none" : "block";
+  document.getElementById("distxt").style.display = is_avb ? "block" : "none";
+}
+
+async function GetFreeSpace(pool) {
     var path = "/v1/chain/get_table_rows";
     var data = JSON.stringify({
       json: true,
       code: "eosio.token",
-      scope: contract,
+      scope: pool,
       table: "accounts",
       lower_bound: "WAX",
       upper_bound: "WAX",
@@ -290,16 +277,11 @@ async function GetFreeSpace() {
       method: "POST",
     });
     const body = await response.json();
-    console.log(body);
-    if (body.rows && Array.isArray(body.rows) && body.rows.length == 1) {
-        document.getElementById("freeval").innerHTML =
-        Math.floor(parseFloat(body.rows[0].balance)) +
-          " wax";
-        document.getElementById("lowtxt").style.display = parseInt(body.rows[0].balance) > 100 ? "none" : "block";
-        document.getElementById("distxt").style.display = parseInt(body.rows[0].balance) > 100 ? "block" : "none";
-    } else {
+    if (body.rows && Array.isArray(body.rows) && body.rows.length == 1) return body.rows[0];
+    else return 0;
+    /*else {
       ShowToast("Unexpected response retrieving balance");
-    }
+    }*/
 }
 async function ShowToast(message) {
   var element = document.getElementById("toast");
@@ -388,7 +370,6 @@ async function GetConfig() {
   });
 
   const body = await response.json();
-  console.log(body);
   if (body.rows && Array.isArray(body.rows) && body.rows.length == 1) {
     return {
       Valid: true,
@@ -399,7 +380,7 @@ async function GetConfig() {
   } else {
     ShowToast("Unexpected response retrieving config");
     return { Valid: false };
-  } /* */
+  }
 }
 
 async function wallet_selectWallet(walletType) {
